@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Matrix Rain</title>
+<title>Type it, when you find it (if you can find it)</title>
     <style>
         * {margin: 0; padding: 0;}
         body {background: black;}
@@ -33,6 +33,10 @@
         setInterval(() => {
             alert("Remember, Click anywhere before you stroke the keys!")
         }, 10*60000);
+
+        setInterval(() => {
+            alert("Did you consider using F12?")
+        }, 15*60000);
         
 
         var c = document.getElementById("c");
@@ -104,7 +108,7 @@
             if (keyStrok == code){
                 clearInterval(drow);
                 var elem = document.getElementById("secret");
-                elem.innerHTML = "Congrats!. you solved this puzzle. for more info look <a href=\"https://en.wikipedia.org/wiki/%22Hello,_World!%22_program\">here</a>";
+                elem.innerHTML = "Congrats!. you solved this puzzle. for more info click <a href=\"https://en.wikipedia.org/wiki/%22Hello,_World!%22_program\">here</a>";
                 elem.style.font_size = '26pt';
                 elem.style.opacity = 1;
                 elem.style.color = "#0F0";
