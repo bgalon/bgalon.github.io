@@ -18,6 +18,7 @@
     var coloredCells = 0;
     var oneCilick = false;
     var cellSize = 30;
+    var collectedList = [];
 
     window.onload = function (){
         var gameTable = document.getElementById("gameTable");
@@ -32,6 +33,7 @@
                 td.style.height = cellSize + 'px';
                 tr.appendChild(td);
                 cellArray.push(td);
+                collectedList.push([i, j])
             }
             table.appendChild(tr);
             rowArray.push(cellArray);
@@ -42,9 +44,11 @@
     }
 
     mainloop = setInterval(() => {
-        var i = Math.floor(Math.random() * (numberOfRows));
-        var j = Math.floor(Math.random() * (numberOfCol));
-        cellElem = cellsArray[i][j];
+        var index = Math.floor(Math.random() * (collectedList.length - 1))
+        var i = collectedList[index][0]
+        var j = collectedList[index][1]
+        collectedList.splice(index, 1)
+        var cellElem = cellsArray[i][j];
         if (cellElem.style.backgroundColor != "red"){
             cellElem.style.backgroundColor = "red";
             cellElem.onclick = function (){cleanCell(i, j);};
@@ -60,6 +64,7 @@
         cellElem.style.backgroundColor = null
         cellElem.onclick = null;
         coloredCells--;
+        collectedList.push([i,j])
         updateScore();
     }
 
