@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Game with Table</title>
+ <style>
+     td{
+        /* height: 30px;
+        width: 30px; */
+        border: gray;
+        border-style: dotted;
+        border-width: thin;
+     }
+ </style>
+ <script>
+    var numberOfRows = 10;
+    var numberOfCol = 10;
+    var cellsArray = [[]];
+    var coloredCells = 0;
+    var oneCilick = false;
+    var cellSize = 30;
+
+    window.onload = function (){
+        var gameTable = document.getElementById("gameTable");
+        var table = document.createElement("table");
+        var rowArray = [];
+        for (var i = 0; i < numberOfRows; i++){
+            var tr = document.createElement("tr");
+            var cellArray = [];
+            for (var j = 0; j < numberOfRows; j++){
+                var td = document.createElement("td");
+                td.style.width = (cellSize + 4) + 'px';
+                td.style.height = cellSize + 'px';
+                tr.appendChild(td);
+                cellArray.push(td);
+            }
+            table.appendChild(tr);
+            rowArray.push(cellArray);
+        }
+        gameTable.appendChild(table);
+        gameTable.style.width = numberOfCol * 30 + 'px';
+        cellsArray = rowArray;
+    }
+
+    mainloop = setInterval(() => {
+        var i = Math.floor(Math.random() * (numberOfRows));
+        var j = Math.floor(Math.random() * (numberOfCol));
+        cellElem = cellsArray[i][j];
+        if (cellElem.style.backgroundColor != "red"){
+            cellElem.style.backgroundColor = "red";
+            cellElem.onclick = function (){cleanCell(i, j);};
+            coloredCells++;
+        }
+        updateScore();
+    }, 800);
+
+    function cleanCell(i, j ){
+        // console.log(i + "/" + j)
+        if (~oneCilick){oneCilick = true}
+        var cellElem = cellsArray[i][j];
+        cellElem.style.backgroundColor = null
+        cellElem.onclick = null;
+        coloredCells--;
+        updateScore();
+    }
+
+    function updateScore(){
+        var scoreElem = document.getElementById("scoring");
+        scoreElem.innerHTML = "there are " + coloredCells + " colored cells";
+        if (oneCilick && coloredCells == 0){
+            clearInterval(mainloop);
+            alert("you won!");
+            location.reload();
+        }
+        if (coloredCells >= numberOfCol * numberOfRows){
+            clearInterval(mainloop);
+            alert("you lost!");
+            location.reload();
+        }
+    }
+
+</script>
+</head>
+
+<body >
+    <div id="continer">
+        <div id="scoring">Paka Paka</div>
+        <div id=gameTable></div>
+    </div>
+</body>
+</html>
