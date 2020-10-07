@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<style>
+     td{
+        height: 5px;
+        width: 5px;
+        border: gray;
+        border-style: dotted;
+        border-width: thin;
+     }
+</style>
+<script>
+    var numberOfRows = 50;
+    var numberOfCol = 50;
+
+    window.onload = function (){
+        var drawingBoard = document.getElementById("drawingBoard");
+        var table = document.createElement("table");
+        var rowArray = [];
+        for (var i = 0; i < numberOfRows; i++){
+            var tr = document.createElement("tr");
+            var cellArray = [];
+            for (var j = 0; j < numberOfRows; j++){
+                var td = document.createElement("td");
+                td.onclick = updateCellColor
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+            rowArray.push(cellArray);
+        }
+        drawingBoard.appendChild(table);
+        cellsArray = rowArray;
+    }
+
+    function updateCellColor(evnet){
+        console.log(evnet)
+        var el = evnet.srcElement;
+        if(!el.style.backgroundColor){
+            el.style.backgroundColor = 'red';
+        }else{
+            el.style.backgroundColor = null;
+        }
+    }
+
+</script>
+<head>
+    <title>Simple Drawing Board</title>
+</head>
+<body>
+    <div id = 'drawingBoard'>
+    </div>
+</body>
+</html>
